@@ -1,0 +1,68 @@
+{% block conteudo %}
+    <form action="/vendas/{{ vendas['id_venda'] }}" method="POST" id="form_principal" enctype="multipart/form-data">
+        {% if vendas['id_venda'] != 'novo' %}
+            <p>
+                <label>Id:</label>
+                {{vendas['id_venda']}}
+            </p>
+        {% endif %}
+        <p>
+            <label for="data_venda">Data da venda:</label>
+            <input type="date" id="data_venda" name="data_venda" autocomplete="off" value="{{vendas['data_venda']}}" />
+        </p>
+        <p>
+            
+        <label>Canal da venda:</label>
+            <input type="text" id="canal_venda" name="canal_venda" autocomplete="off" value="{{vendas['canal_venda']}}" />
+             
+        
+        </p>
+        
+        <p>
+            <label for="desconto_venda">Desconto da Venda:</label>
+            <input type="text" id="desconto_venda" name="desconto_venda" autocomplete="off" value="{{vendas['desconto_venda']}}" />
+        </p>
+
+
+        <div class="input_fields_wrap">
+        <div>
+            <button class="add_field_button">Adicionar Item</button>
+        </div>
+        <div>
+            
+        </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </form>
+
+    <script type='text/javascript'>
+            $(document).ready(function() {
+                var max_fields      = 10; //maximum input boxes allowed
+                var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+                var add_button      = $(".add_field_button"); //Add button ID
+                
+                var x = 1; //initlal text box count
+                $(add_button).click(function(e){ //on add input button click
+                    e.preventDefault();
+                    if(x < max_fields){ //max input box allowed
+                        x++; //text box increment
+                        $(wrapper).append('<div><label for="id_produto">Item:</label><select name="id_produto" id="produto"><option value="escolha">Escolha o item...</option>{% for produto in produto %}<option value="{{produto['nome']}}">{{produto['nome']}} </option>{% endfor %}</select><label for="quantidade">Quantidade:</label><input type="text" id="quantidade" name="mytext[]"><a href="#" class="remove_field">Remove</a></div>'); //add input box
+                    }
+                });
+                
+                $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+                })
+            });
+    </script>
+
+{% endblock %}

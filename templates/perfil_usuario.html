@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block titulo %}Cadastrar Usuário{% endblock %}
+
+{% block js %}
+    function validar() {
+        const nome = document.getElementById('nome');
+        const sexo_masc = document.getElementById('sexo_masc');
+        const sexo_fem = document.getElementById('sexo_fem');
+        const serie = document.getElementById('serie');
+        if (nome.value === '') {
+            alert("Preencha o nome.");
+            return false;
+        }
+        if (!sexo_masc.checked && !sexo_fem.checked) {
+            alert("Escolha o sexo.");
+            return false;
+        }
+        if (serie.value === "escolha") {
+            alert("Escolha a série.");
+            return false;
+        }
+        return true;
+    }
+
+    function salvar() {
+        if (validar()) document.getElementById("form_principal").submit();
+    }
+
+    {% if aluno['id_aluno'] != 'novo' %}
+        function excluir() {
+            if (!confirm("Você tem certeza?")) return;
+            xhr = new XMLHttpRequest();
+            xhr.open('DELETE', "{{ url_for('deletar_aluno_api', id_aluno = aluno['id_aluno']) }}");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status === 200 || xhr.status === 404) {
+                    document.open();
+                    document.write(xhr.responseText);
+                    document.close();
+                } else {
+                    alert('Erro ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }
+
+        function apagar_foto() {
+            if (!confirm("Você tem certeza?")) return;
+            xhr = new XMLHttpRequest();
+            xhr.open('DELETE', "{{ url_for('aluno_deletar_foto', id_foto = aluno['id_foto']) }}");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status === 200 || xhr.status === 404) {
+                    document.getElementById("foto").setAttribute('src', "{{ url_for('static', filename = 'no-photo.png') }}");
+                } else {
+                    alert('Erro ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }
+    {% endif %}
+{% endblock %}
+
+
+
+
+{% block conteudo %}
+    <form class="formulario" action="/aluno/{{ aluno['id_aluno'] }}" method="POST" id="form_principal" enctype="multipart/form-data">
+        <h1> Cadastro de Usuários</h1>
+        
+        <div class="field">
+            <label for="nome">Nome Completo:*</label>
+            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+        </div>
+        
+        <div class="field">
+            <label for="login">Login:*</label>
+            <input type="text" id="login" name="login" placeholder="Digite seu Login">
+        </div>
+        
+
+        <div class="field">
+            <label for="senha">Senha:*</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        </div>     
+
+        <div class="field">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite seu CPF" required>
+        </div>
+
+        <div class="field">
+            <label for="telefone">Celular:</label>
+            <input type="text" id="telefone" name="telefone" placeholder="Digite seu Celular">
+        </div>
+
+        <div class="field">
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu E-Mail*" required>
+        </div>
+
+
+        <div>
+            <h3>Para pagamento</h3>
+        </div>
+
+
+        <div class="field">
+            <label for="email">Pix:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu E-Mail*" required>
+        </div>
+
+        <div class="field">
+            <label for="banco">Banco:</label>
+            <input type="text" id="banco" name="banco" placeholder="Digite o nome do seu banco" required>
+        </div>  
+
+        <div class="field radiobox">
+            <span>Tipo de Conta:</span>
+            <input type="radio" name="Tipoconta" id="corrente" value="corrente" checked><label for="corrente">Conta Corrente</label>
+            <input type="radio" name="Tipoconta" id="pupanca" value="pupanca"><label for="pupanca">Conta Poupança</label>
+        </div>
+
+        <div class="field">
+            <label for="CEP">CEP:</label>
+            <input type="text" id="cep" name="cep" placeholder="Digite seu CEP*" required>
+        </div>  
+
+        <div class="field">
+            <label for="lagradouro">Lagradouro(rua/av/etc):</label>
+            <input type="text" id="lagradouro" name="lagradouro" placeholder="Digite o lagradouro*" required>
+        </div>  
+
+
+        <div class="field">
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" placeholder="Digite o número (Se for sem número digite 0)" required>
+        </div>  
+
+        <div class="field">
+            <label for="complemento">Complemento:</label>
+            <input type="text" id="complemento" name="complemento" placeholder="Digite caso haja complemento" required>
+        </div>  
+
+        <div class="field">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Digite a cidade" required>
+        </div> 
+
+        <div class="field">
+            <label for="uf">Estado:</label>
+            <input type="text" id="uf" name="uf" placeholder="Digite o estado" required>
+        </div>
+
+        
+        
+        
+ <!--       
+        <div class="field radiobox">
+            <span>Deseja receber nossas novidades?</span>
+            <input type="radio" name="novidades" id="sim" value="sim" checked><label for="sim">Sim</label>
+            <input type="radio" name="novidades" id="nao" value="nao"><label for="nao">Não</label>
+        </div>
+        
+        <div class="field">
+            <label for="mensagem">Sua mensagem:</label>
+            <textarea name="mensagem" id="mensagem" placeholder="Mensagem*" required></textarea>
+        </div>
+-->
+        <input type="submit" name="acao" value="Enviar">
+    </form>
+</body>
+</html>

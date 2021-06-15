@@ -1,0 +1,45 @@
+{% block conteudo %}
+    <form action="/produtos/{{ produto['id_produto'] }}" method="POST" id="form_principal" enctype="multipart/form-data">
+        {% if produto['id_produto'] != 'novo' %}
+            <p>
+                <label>Id:</label>
+                {{produto['id_produto']}}
+            </p>
+        {% endif %}
+        <p>
+            <label for="nome">Nome do produto:</label>
+            <input type="text" id="nome" name="nome" autocomplete="off" value="{{produto['nome']}}" />
+        </p>
+        <p>
+            
+        <label>Status:</label>
+            <input type="radio" id="ativo" name="status" value="ativo" {% if produto['status'] == 'ativo' %} checked="checked"{% endif %}>Ativo</input>
+            <input type="radio" id="inativo" name="status" value="inativo" {% if produto['status'] == 'inativo' %} checked="checked"{% endif %}>Inativo</input>
+             
+        
+        </p>
+        
+        <p>
+            <label for="preco_atual">Preço atual:</label>
+            <input type="text" id="preco_atual" name="preco_atual" autocomplete="off" value="{{produto['preco_atual']}}" />
+        </p>
+        <p>
+            <label for="ingredientes">Ingredientes:</label>
+            <input type="text" id="ingredientes" name="ingredientes" autocomplete="off" value="{{produto['ingredientes']}}" />
+        </p>
+        <p>
+            <label for="prazo_validade">Prazo de validade:</label>
+            <input type="text" id="prazo_validade" name="prazo_validade" autocomplete="off" value="{{produto['prazo_validade']}}" />
+        </p>
+        <p>
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" autocomplete="off" value="{{produto['descricao']}}" />
+        </p>
+        <p>
+            <button type="button" onclick="javascript:salvar();">Salvar</button>
+            
+        </p>
+    </form>
+    <p><a href="/produtos">Voltar</a></p>
+{% endblock %}
+

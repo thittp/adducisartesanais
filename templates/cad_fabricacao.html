@@ -1,0 +1,43 @@
+{% extends "basemaster.html" %}
+{% block titulo %}Cadastrar Fabricação{% endblock %}
+{% block js %}
+    function validar() {
+        const data_compra = document.getElementById('data_compra');
+        if (data_compra.value === '') {
+            alert("Preencha a data.");
+            return false;
+        }
+        return true;
+    }
+
+    function salvar() {
+        if (validar()) document.getElementById("form_principal").submit();
+    }
+
+{% endblock %}
+
+
+
+
+{% block conteudo %}
+    <form action="/insumo/compra/{{ compra['id_compra'] }}" method="POST" id="form_principal" enctype="multipart/form-data">
+        {% if compra['id_compra'] != 'novo' %}
+            <p>
+                <label>Id:</label>
+                {{compra['id_compra']}}
+            </p>
+        {% endif %}
+        <p>
+            <label for="data_compra">Data da compra:</label>
+            <input type="date" id="data_compra" name="data_compra" autocomplete="off" value="{{compra['data_compra']}}" />
+        </p>
+
+
+
+        <p>
+            <button type="button" onclick="javascript:salvar();">Salvar</button>
+            {% if compra['id_compra'] != 'novo' %}<button type="button" onclick="javascript:excluir();">Excluir</button>{% endif %}
+        </p>
+    </form>
+    <p><a href="/insumo/compra">Voltar</a></p>
+{% endblock %}

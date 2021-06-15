@@ -1,0 +1,96 @@
+{% extends "basemaster.html" %}
+{% block titulo %}Item fabricação{% endblock %}
+{% block js %}
+    function validar() {
+        const nome = document.getElementById('nome');
+        const login = document.getElementById('login');
+        const senha = document.getElementById('senha');
+        const tipo = document.getElementById('tipo');
+        const telefone = document.getElementById('telefone');
+        if (nome.value === '') {
+            alert("Preencha o nome.");
+            return false;
+        }
+        if (login.value === '') {
+            alert("Preencha o login.");
+            return false;
+        }
+        if (senha.value === '') {
+            alert("Preencha a senha.");
+            return false;
+        }
+        if (tipo.value === '') {
+            alert("Preencha o tipo.");
+            return false;
+        }
+        if (telefone.value === '') {
+            alert("Preencha o telefone.");
+            return false;
+        }
+        return true;
+    }
+
+    function salvar() {
+        if (validar()) document.getElementById("form_principal").submit();
+    }
+
+    {% if fabricacao['id'] != 'novo' %}
+        function excluir() {
+            if (!confirm("Você tem certeza?")) return;
+            xhr = new XMLHttpRequest();
+            xhr.open('DELETE', "{{ url_for('deletar_usuario_api', id = usuario['id']) }}");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.readyState !== 4) return;
+                if (xhr.status === 200 || xhr.status === 404) {
+                    document.open();
+                    document.write(xhr.responseText);
+                    document.close();
+                } else {
+                    alert('Erro ' + xhr.status);
+                }
+            };
+            xhr.send();
+        }
+
+    
+    {% endif %}
+{% endblock %}
+
+
+
+
+{% block conteudo %}
+    <form action="/fabricacao/{{ fabricacao['id_fabricacao'] }}" method="POST" id="form_principal" enctype="multipart/form-data">
+        {% if fabricacao['id'] != 'novo' %}
+            <p>
+                <label>Id:</label>
+                {{fabricacao['id']}}
+            </p>
+        {% endif %}
+
+        <p>
+            <label for="serie">Série:</label>
+            <select name="id_serie" id="serie">
+                <option value="escolha">Escolha...</option>
+                {% for produtos in produtos %}
+                    <option value="{{produto['id_produto']}}" {% if itemfabricacao['id_produto'] == produto['id_produto'] %}selected="selected"{% endif %}>{{produto['nomenumero']}} </option>
+                {% endfor %}
+            </select>
+        </p>
+        <p>
+            <label for="quantidade">Quantidade:</label>
+            <input type="text" id="quantidade" name="quantidade" autocomplete="off" value="{{itemfabricacao['quantidade']}}" />
+        </p>
+        <p>
+            <label for="prazo_vencimento">Prazo_vencimento:</label>
+            <input type="text" id="prazo_vencimento" name="tipo" autocomplete="off" value="{{itemfabricacao['prazo_vencimento']}}" />
+        </p>
+        
+        <p>
+            <button type="button" onclick="javascript:salvar();">Salvar</button>
+            {% if itemfabricacao['id_fabricacao'] != 'novo' %}<button type="button" onclick="javascript:excluir();">Excluir</button>{% endif %}
+        </p>
+    </form>
+    <p><a href="/fabricacao">Voltar</a></p>
+{% endblock %}

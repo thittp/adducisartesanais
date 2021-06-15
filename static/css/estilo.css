@@ -1,0 +1,176 @@
+body{
+    background-image: url(../img/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-attachment: fixed;    
+    min-height: 10%;
+    margin: 50px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.logo{
+    margin: 0 auto;
+}
+
+.formulario{
+    margin: 100;
+    width: 400px;
+    padding: 50px;
+    border:1px solid #ccc;    
+}
+
+form{
+    margin: 100;
+    width: 400px;
+    padding: 50px;
+    border:1px solid #ccc;    
+}
+
+header{
+    background-color: #d2edf4;
+    padding: 1;
+    text-align: left;
+    font-size: 15px;
+}
+
+
+nav{
+    overflow: hidden;
+    background-color: rgb(219, 216, 216);
+}
+
+nav a{
+    float: left;
+    color:black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+nav a:hover{
+    background-color: rgb(185, 179, 179);
+}
+
+nav a.ativo{
+    background-color: rgb(185, 179, 179);
+}
+
+.FixoNoTopo{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
+
+.FixoNoTopo + .principal{
+    padding-top: 60px;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: rgb(42, 43, 42)
+}
+
+
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: rgb(42, 43, 42)
+}
+
+h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: rgb(42, 43, 42)
+}
+
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
+
+.grid table {
+    text-transform: uppercase;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    margin: 1 auto;
+    color: #595c62;
+    font-size: 0.6em;
+    font-family: 'verdana';
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.grid table .top td, .inANDout table .dados:last-of-type td{
+  border-bottom: 2px solid #595c62;
+ 
+}
+.grid table td{
+  border-left: 1px solid #ddd;
+  padding:1em;
+}
+.grid table td:first-of-type{
+  border-left: none;
+}
+
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+
+

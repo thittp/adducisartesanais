@@ -1,0 +1,51 @@
+{% extends "basemaster.html" %}
+{% block titulo %}Cadastrar Insumo{% endblock %}
+{% block js %}
+    function validar() {
+        const nome = document.getElementById('nome');
+        const status = document.getElementById('status');
+        if (nome.value === '') {
+            alert("Preencha o nome.");
+            return false;
+        }
+        
+        if (status.value === '') {
+            alert("Preencha o status.");
+            return false;
+        }
+        return true;
+    }
+
+    function salvar() {
+        if (validar()) document.getElementById("form_principal").submit();
+    }
+{% endblock %}
+
+
+
+{% block conteudo %}
+    <form action="/insumo/{{ insumo['id_insumo'] }}" method="POST">
+        {% if insumo['id_insumo'] != 'novo' %}
+            <p>
+                <label>Id:</label>
+                {{insumo['id_insumo']}}
+            </p>
+        {% endif %}
+        <p>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" autocomplete="off" value="{{insumo['nome']}}" />
+        </p>
+                <p>
+            
+        <label>Status:</label>
+            <input type="radio" id="ativo" name="status" value="ativo" {% if insumo['status'] == 'ativo' %} checked="checked"{% endif %}> Ativo</input>
+            <input type="radio" id="inativo" name="status" value="inativo" {% if insumo['status'] == 'inativo' %} checked="checked"{% endif %}> Inativo</input>
+             
+        
+        </p>
+        <p>
+            <button type="submit">Salvar</button>
+        </p>
+    </form>
+    <p><a href="/insumo">Voltar</a></p>
+{% endblock %}

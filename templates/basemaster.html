@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block titulo %}{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename = 'img/cookie.png') }}"/>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/estilo.css') }}">
+       
+
+        <script type="text/javascript" href="{{ url_for('static', filename= 'scripts.js') }}">
+            {% block js %}
+            function logout() {
+                document.getElementById("form_logout").submit();
+            }
+            {% endblock %}
+        </script>
+    </head>
+    <body>
+        <header>
+            <h3>OLÁ, {{logado['nome']}}!</h3>
+        </header>
+        <nav>
+            <a href="/produtos">PRODUTOS</a>
+            <a href="/vendas">VENDAS</a>
+            <a href="/estoque">FABRICAÇÃO</a>
+            <a href="/insumo">INSUMOS</a>
+            <a href="/caixa">CAIXA</a>
+            <a href="/usuarios">USUÁRIOS</a>
+            <a href="#" onclick="javascript:logout()">SAIR</a>
+            <form action="/logout" id="form_logout" method="POST" style="display: none"></form>
+        </nav>
+ 
+        {% block conteudo %}           
+        {% endblock %}
+    </body>
+</html>
+
+
